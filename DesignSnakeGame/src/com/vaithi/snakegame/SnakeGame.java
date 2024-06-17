@@ -17,13 +17,19 @@ public class SnakeGame {
         snakePositions.add("2,1");
 
         Deque<String> snakePositionsLeft = new LinkedList<>();
-        snakePositionsLeft.add("2,1");
         snakePositionsLeft.add("2,2");
-        snakePositionsLeft.add("1,0");
-        snakePositionsLeft.add("1,1");
         snakePositionsLeft.add("1,2");
-
+        snakePositionsLeft.add("1,1");
+        snakePositionsLeft.add("1,0");
         snakePositionsLeft.add("0,0");
+
+        Deque<String> snakePositionsUp = new LinkedList<>();
+        snakePositionsUp.add("1,0");
+        snakePositionsUp.add("1,1");
+        snakePositionsUp.add("1,2");
+        snakePositionsUp.add("2,2");
+        snakePositionsUp.add("2,1");
+
         GameSettings settings = new GameSettings(3,3, foodsList);
         settings.setSnakePositions(snakePositionsLeft);
 
@@ -47,5 +53,11 @@ public class SnakeGame {
         SnakeGameUtil.printCurrentGrid(settings,gridMap);
         SnakeGameUtil.moveLeft(settings,gridMap);
         SnakeGameUtil.printCurrentGrid(settings,gridMap);
+
+//        SnakeGameUtil.moveUp(settings,gridMap);
+//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+//
+//        SnakeGameUtil.moveUp(settings,gridMap);
+//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
     }
 }

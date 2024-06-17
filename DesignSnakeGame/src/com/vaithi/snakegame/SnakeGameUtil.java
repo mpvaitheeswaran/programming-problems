@@ -59,45 +59,8 @@ public class SnakeGameUtil {
 
         String newHeadRowColumnPair = String.valueOf(headRow)+","+String.valueOf(headColumn+1);
 
-        // Changing the tail position.
-        String tailPosition = snakePositions.peekLast();
-        int tailRow = Integer.parseInt(tailPosition.split(",")[0]);
-        int tailColumn = Integer.parseInt(tailPosition.split(",")[1]);
-
-        int newTailRow = tailRow;
-        int newtailColumn = tailColumn;
-
-        if((headRow+tailRow)%2==0){
-            //Move farward
-            if(tailColumn>=settings.width-1){
-                if(headRow>tailRow)
-                    tailRow += 1;
-                else
-                    tailRow -= 1;
-            }else{
-                tailColumn +=1;
-            }
-        }else {
-            //move Backward
-            if(tailColumn<=0){
-                if(headRow>tailRow)
-                    tailRow += 1;
-                else
-                    tailRow -= 1;
-            }else{
-                tailColumn -=1;
-            }
-        }
-
-        String newTailRowColumnPair = String.valueOf(tailRow)+","+String.valueOf(tailColumn);
-
         snakePositions.addFirst(newHeadRowColumnPair);
         snakePositions.removeLast();
-
-        if(!snakePositions.peekLast().equalsIgnoreCase(newTailRowColumnPair)){
-            // Don't add last element if the new element are equals.
-            snakePositions.addLast(newTailRowColumnPair);
-        }
 
     }
 
@@ -109,52 +72,34 @@ public class SnakeGameUtil {
 
         String newHeadRowColumnPair = String.valueOf(headRow)+","+String.valueOf(headColumn-1);
 
-        // Changing the tail position.
-        String tailPosition = snakePositions.peekLast();
-        int tailRow = Integer.parseInt(tailPosition.split(",")[0]);
-        int tailColumn = Integer.parseInt(tailPosition.split(",")[1]);
+        snakePositions.addFirst(newHeadRowColumnPair);
+        snakePositions.removeLast();
 
-        int newTailRow = tailRow;
-        int newtailColumn = tailColumn;
+    }
 
-        if((headRow+tailRow)%2==0){
-            //move Backward
-            if(tailColumn<=0){
-                if(headRow>tailRow)
-                    tailRow += 1;
-                else
-                    tailRow -= 1;
-            }else{
-                tailColumn -=1;
-            }
+    public static void moveUp(GameSettings settings,Map<String,String> gridMap){
+        Deque<String> snakePositions = settings.getSnakePositions();
+        String headPosition = snakePositions.peekFirst();
+        int headRow = Integer.parseInt(headPosition.split(",")[0]);
+        int headColumn = Integer.parseInt(headPosition.split(",")[1]);
 
-        }else {
-            //Move farward
-            if(tailColumn>=settings.width-1){
-                if(headRow>tailRow)
-                    tailRow += 1;
-                else
-                    tailRow -= 1;
-            }else{
-                tailColumn +=1;
-            }
-        }
-
-        String newTailRowColumnPair = String.valueOf(tailRow)+","+String.valueOf(tailColumn);
+        String newHeadRowColumnPair = String.valueOf(headRow-1)+","+String.valueOf(headColumn);
 
         snakePositions.addFirst(newHeadRowColumnPair);
         snakePositions.removeLast();
 
-        if(!snakePositions.peekLast().equalsIgnoreCase(newTailRowColumnPair)){
-            // Don't add last element if the new element are equals.
-            snakePositions.addLast(newTailRowColumnPair);
-        }
-
     }
 
-    private static List<String> getSnakePositions(Map<String, String> gridMap) {
-        List<String> snakePositions = new ArrayList<>();
-        snakePositions.add("0,0");
-        return snakePositions;
+    public static void moveDown(GameSettings settings,Map<String,String> gridMap){
+        Deque<String> snakePositions = settings.getSnakePositions();
+        String headPosition = snakePositions.peekFirst();
+        int headRow = Integer.parseInt(headPosition.split(",")[0]);
+        int headColumn = Integer.parseInt(headPosition.split(",")[1]);
+
+        String newHeadRowColumnPair = String.valueOf(headRow+1)+","+String.valueOf(headColumn);
+
+        snakePositions.addFirst(newHeadRowColumnPair);
+        snakePositions.removeLast();
+
     }
 }
