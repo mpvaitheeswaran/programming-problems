@@ -5,7 +5,7 @@ import java.util.*;
 public class SnakeGame {
     public static void main(String[] args) {
 
-        List<String> foodsList = new ArrayList<>();
+        Queue<String> foodsList = new LinkedList<>();
         foodsList.add("2,2");
 
         Deque<String> snakePositions = new LinkedList<>();
@@ -59,5 +59,21 @@ public class SnakeGame {
 //
 //        SnakeGameUtil.moveUp(settings,gridMap);
 //        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+
+        while(true){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Move the Snake:");
+            String moveCommand = sc.next();
+            int result = -1;
+            if("Q".equalsIgnoreCase(moveCommand))
+                break;
+            else
+                result = SnakeGameUtil.moveSnake(settings,moveCommand);
+
+            if(result==1){
+                // add new tail.
+            }
+
+        }
     }
 }
