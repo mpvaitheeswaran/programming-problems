@@ -5,75 +5,56 @@ import java.util.*;
 public class SnakeGame {
     public static void main(String[] args) {
 
-        Queue<String> foodsList = new LinkedList<>();
-        foodsList.add("2,2");
+        Deque<String> foodsList = new LinkedList<>();
+        foodsList.add("1,2");
+        foodsList.add("0,1");
 
-        Deque<String> snakePositions = new LinkedList<>();
-        snakePositions.add("0,0");
-        snakePositions.add("1,0");
-        snakePositions.add("1,1");
-        snakePositions.add("1,2");
-        snakePositions.add("2,2");
-        snakePositions.add("2,1");
+        System.out.println("***Welcome to snake Game***");
 
-        Deque<String> snakePositionsLeft = new LinkedList<>();
-        snakePositionsLeft.add("2,2");
-        snakePositionsLeft.add("1,2");
-        snakePositionsLeft.add("1,1");
-        snakePositionsLeft.add("1,0");
-        snakePositionsLeft.add("0,0");
+        Scanner sc = new Scanner(System.in);
 
-        Deque<String> snakePositionsUp = new LinkedList<>();
-        snakePositionsUp.add("1,0");
-        snakePositionsUp.add("1,1");
-        snakePositionsUp.add("1,2");
-        snakePositionsUp.add("2,2");
-        snakePositionsUp.add("2,1");
+        try {
+            System.out.println("Enter the board width :");
+            int width = Integer.parseInt(sc.next());
 
-        GameSettings settings = new GameSettings(3,3, foodsList);
-        settings.setSnakePositions(snakePositionsLeft);
+            System.out.println("Enter the board Height :");
+            int height = Integer.parseInt(sc.next());
 
-        Map<String, String> gridMap = SnakeGameUtil.initializeGrid(settings);
+            GameSettings settings = new GameSettings(width,height, foodsList);
 
-        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+            SnakeGameUtil.printCurrentGrid(settings,null);
 
-//        SnakeGameUtil.moveRight(settings,gridMap);
-//
-//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
-//
-//        SnakeGameUtil.moveRight(settings,gridMap);
-//
-//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
-//
-//        SnakeGameUtil.moveRight(settings,gridMap);
-//
-//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+            while(true){
+                System.out.println("Move the Snake:");
+                String moveCommand = sc.next();
 
-        SnakeGameUtil.moveLeft(settings,gridMap);
-        SnakeGameUtil.printCurrentGrid(settings,gridMap);
-        SnakeGameUtil.moveLeft(settings,gridMap);
-        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+                if(!SnakeGameUtil.MOVE_INPUT_LIST.contains(moveCommand.toUpperCase())){
+                    System.out.println("***Invalid Command please enter correct input "+SnakeGameUtil.MOVE_INPUT_LIST);
+                    continue;
+                }
+                if("Q".equalsIgnoreCase(moveCommand))
+                    break;
 
-//        SnakeGameUtil.moveUp(settings,gridMap);
-//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
-//
-//        SnakeGameUtil.moveUp(settings,gridMap);
-//        SnakeGameUtil.printCurrentGrid(settings,gridMap);
+                int result = SnakeGameUtil.moveSnake(settings,moveCommand);
 
-        while(true){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Move the Snake:");
-            String moveCommand = sc.next();
-            int result = -1;
-            if("Q".equalsIgnoreCase(moveCommand))
-                break;
-            else
-                result = SnakeGameUtil.moveSnake(settings,moveCommand);
+                SnakeGameUtil.printCurrentGrid(settings,null);
 
-            if(result==1){
-                // add new tail.
+                if(result<0){
+                    // Game over
+                    System.out.println("***Game Over***");
+                    break;
+                }
+
+                if(settings.getFoodPositions().isEmpty() || (width*height)==settings.getSnakePositions().size()){
+                    System.out.println("***YOU Won the Game***");
+                    break;
+                }
+
             }
 
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("***Invalid input please start again***");
         }
     }
 }

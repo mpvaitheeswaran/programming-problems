@@ -10,10 +10,10 @@ public class GameSettings {
 
     int width;
     int height;
-    Queue<String> foodPositions;
+    Deque<String> foodPositions;
     Deque<String> snakePositions;
 
-    public GameSettings(int width, int height, Queue<String> foodPositions) {
+    public GameSettings(int width, int height, Deque<String> foodPositions) {
         this.width = width;
         this.height = height;
         this.foodPositions = foodPositions;
@@ -45,11 +45,11 @@ public class GameSettings {
         this.height = height;
     }
 
-    public Queue<String> getFoodPositions() {
+    public Deque<String> getFoodPositions() {
         return foodPositions;
     }
 
-    public void setFoodPositions(Queue<String> foodPositions) {
+    public void setFoodPositions(Deque<String> foodPositions) {
         this.foodPositions = foodPositions;
     }
 }
